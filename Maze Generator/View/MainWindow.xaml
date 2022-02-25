@@ -1,0 +1,59 @@
+﻿<Window x:Class="Maze_Generator.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maze_Generator.View"
+       xmlns:v="clr-namespace:Maze_Generator.View"
+        mc:Ignorable="d"    
+        SizeToContent="WidthAndHeight"
+        BorderThickness="1"
+        BorderBrush="Black"
+        ResizeMode="NoResize"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <Grid>
+                <v:MazeBackground/>
+
+                <!--<Polygon Points="{Binding Points}" Margin="{Binding Margin}" Fill="{Binding Color}" StrokeThickness="2" Stroke="Black"/>-->
+                <Polyline  Points="{Binding TheMaze.EndHexagon.TopLeftPoints}" Margin="{Binding TheMaze.EndHexagon.Margin}" Stroke="Black" StrokeThickness="1" Opacity="{Binding TheMaze.EndHexagon.TopLeftWallOpacity}" InkCanvas.Right="2"/>
+                <Polyline  Points="{Binding TheMaze.EndHexagon.TopRightPoints}" Margin="{Binding TheMaze.EndHexagon.Margin}" Stroke="Black" StrokeThickness="1" Opacity="{Binding TheMaze.EndHexagon.TopRightWallOpacity}" InkCanvas.Right="2"/>
+                <Polyline Points="{Binding TheMaze.EndHexagon.RightPoints}" Margin="{Binding TheMaze.EndHexagon.Margin}" Stroke="Black" StrokeThickness="1" Opacity="{Binding TheMaze.EndHexagon.RightWallOpacity}" InkCanvas.Right="2"/>
+                <Polyline Points="{Binding TheMaze.EndHexagon.BottomLeftPoints}" Margin="{Binding TheMaze.EndHexagon.Margin}" Stroke="Black" StrokeThickness="1" Opacity="{Binding TheMaze.EndHexagon.BottomLeftWallOpacity}" InkCanvas.Right="2"/>
+                <Polyline  Points="{Binding TheMaze.EndHexagon.BottomRightPoints}" Margin="{Binding TheMaze.EndHexagon.Margin}" Stroke= "Black" StrokeThickness="1" Opacity="{Binding TheMaze.EndHexagon.BottomRightWallOpacity}" InkCanvas.Right="2"/>
+                <Polyline  Points="{Binding TheMaze.EndHexagon.LeftPoints}" Margin="{Binding TheMaze.EndHexagon.Margin}" Stroke= "Black" StrokeThickness="1" Opacity="{Binding TheMaze.EndHexagon.LeftWallOpacity}" InkCanvas.Right="2"/>
+
+                <!--<Polygon Points="{Binding Points}" Margin="{Binding Margin}" Fill="{Binding Color}" StrokeThickness="2" Stroke="Black"/>-->
+                <ItemsControl DataContext="{Binding TheMaze}" ItemsSource="{Binding Hexagons}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Canvas>
+                                <!--<Polygon Points="{Binding Points}" Margin="{Binding Margin}" Fill="{Binding Color}" StrokeThickness="2" Stroke="Black"/>-->
+                                <Polyline Points="{Binding TopLeftPoints}" Margin="{Binding Margin}" Stroke="Black" StrokeThickness="1" Opacity="{Binding TopLeftWallOpacity}"/>
+                                <Polyline Points="{Binding TopRightPoints}" Margin="{Binding Margin}" Stroke="Black" StrokeThickness="1" Opacity="{Binding TopRightWallOpacity}"/>
+                                <Polyline Points="{Binding RightPoints}" Margin="{Binding Margin}" Stroke="Black" StrokeThickness="1" Opacity="{Binding RightWallOpacity}"/>
+                                <Polyline Points="{Binding BottomLeftPoints}" Margin="{Binding Margin}" Stroke="Black" StrokeThickness="1" Opacity="{Binding BottomLeftWallOpacity}"/>
+                                <Polyline Points="{Binding BottomRightPoints}" Margin="{Binding Margin}" Stroke= "Black" StrokeThickness="1" Opacity="{Binding BottomRightWallOpacity}"/>
+                                <Polyline Points="{Binding LeftPoints}" Margin="{Binding Margin}" Stroke= "Black" StrokeThickness="1" Opacity="{Binding LeftWallOpacity}"/>
+                            </Canvas>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+            <Button Content="{Binding Starter.Content}" Height="25" Command="{Binding Starter.StartCommand}" CommandParameter="{Binding}" IsEnabled="{Binding Starter.IsEnabled}"></Button>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="50" Content="{Binding CellSpeed}"/>
+                    <Slider Width="300" Value="{Binding CellSpeed}" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="0" Maximum="100"/>
+                    <Label Width="140" Content="searching-speed (ms)"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="50" Content="{Binding HexagonSpeed}"/>
+                    <Slider Width="300" Value="{Binding HexagonSpeed}" IsSnapToTickEnabled="True" TickFrequency="1" Minimum="0" Maximum="700"/>
+                    <Label Width="140" Content="placement-speed (ms)"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
